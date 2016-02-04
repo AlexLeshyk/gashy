@@ -4,39 +4,31 @@ class BinaryTree {
 	
 	constructor() {
 		this.root = null;
-//		this.count = 0;
 	}
 	
 	insertIntoNode(node, data){
-//		console.log('insertIntoNode: ', node, data)
 		if (node.data == null ) {
 			node.data = data;
-//			console.log('insertIntoNode: Select suitable place ')
 		}
-		else{
+		else {
 			if (data > node.data){
 				if (node.right == null)
 					node.right = new Node()
-//				console.log('insertIntoNode: data > node.data. Go to rigth node ')
 				this.insertIntoNode(node.right, data);
 			}
-			else{
+			else {
 				if (node.left == null)
 					node.left = new Node()
-//				console.log('insertIntoNode: data < node.data. Go to left node ')
 				this.insertIntoNode(node.left, data);
 			}
 		}
 	}
 	
 	insert(data) {
-//		console.log('insert: ', data)
 		if (this.root == null){
-//			console.log('insert: Create rool node')
 			this.root = new Node()
 		}
 		this.insertIntoNode(this.root, data)
-//		this.count = this.count + 1;
 	}
 
 	containsInNode(node, data){
@@ -59,49 +51,77 @@ class BinaryTree {
 	}
 
 	removeFromNode(node, data){
-		console.log('removeFromNode', node)
-		if  (node.data == null){
-			console.log('removeFromNode node.data == null')
-			return
-		}
-		else if (node.data == data){
-			console.log('removeFromNode node.data == data')
+		
+		if (data > node.data && node.right !== null ){
 			
-			if (node.left !== null){
-				console.log('removeFromNode !node.left', node)
-				node = node.left
+			// right
+			if (node.right.data == data){
+
+				var tempright = null;
+				if (node.right.left !== null ) {
+					tempright = node.right.left
+				}
+				node.right = tempright;
 			}
-			else if (node.right !== null) {
-				console.log('removeFromNode !node.right')
-				node = node.right
-			}
-			else {
-				console.log('removeFromNode node = null')
-				node.data = null;
-				console.log('removeFromNode node = null', node)
-			}
-//			this.count = this.count - 1;
-		}
-		else {
-			if ((data > node.data) && !node.right) {
+			else
+			{
 				this.removeFromNode(node.right, data);
 			}
-			else if (!node.left){
+		}
+		else if (node.left !== null)
+		{
+			
+			// left
+			if (node.left.data == data) {
+				var tempLeft = null;
+				if (node.left.left !== null ){
+					tempLeft = node.left.left
+				}
+				node.left = tempLeft;
+			} else {
 				this.removeFromNode(node.left, data);
-			}
+			}			
+		} else {
+			
 		}
 	}
-	
+
 	remove(data) {
 		
-		console.log('remove', data)
+		if (this.root == null)
+			return 
+		if (this.root.data == null)
+			return 
+		if (this.root.data == data)
+		{
+			this.root = null;		
+			return 
+		}
 		
 		this.removeFromNode(this.root, data)
-		console.log('remove End', this.root)
+	}
+	
+	sizeForNode(node){
+		var i = 0;
+		
+		if (node == null){
+			return i;
+		} else{
+			i = 1;
+		}
+		if (node.left !== null){
+			
+			i = i + this.sizeForNode(node.left)
+		}
+		if (node.right !== null){
+			
+			i = i + this.sizeForNode(node.right)
+		}
+		 return i;
 	}
 	
 	size() {
-		return 0;
+		return this.sizeForNode(this.root);
 	}
 
 	isEmpty() {
