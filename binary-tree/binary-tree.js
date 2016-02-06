@@ -6,19 +6,19 @@ class BinaryTree {
 		this.root = null;
 	}
 	
-	insertIntoNode(node, data){
+	insertIntoNode(node, data) {
 		if (node.data == null ) {
 			node.data = data;
 		}
 		else {
-			if (data > node.data){
+			if (data > node.data) {
 				if (node.right == null)
-					node.right = new Node()
+					node.right = new Node();
 				this.insertIntoNode(node.right, data);
 			}
 			else {
 				if (node.left == null)
-					node.left = new Node()
+					node.left = new Node();
 				this.insertIntoNode(node.left, data);
 			}
 		}
@@ -26,9 +26,9 @@ class BinaryTree {
 	
 	insert(data) {
 		if (this.root == null){
-			this.root = new Node()
+			this.root = new Node();
 		}
-		this.insertIntoNode(this.root, data)
+		this.insertIntoNode(this.root, data);
 	}
 
 	containsInNode(node, data){
@@ -36,10 +36,10 @@ class BinaryTree {
 		if (node.data == data) {
 			return true;
 		}
-		if (node.left && this.containsInNode(node.left, data)){
+		if (node.left && this.containsInNode(node.left, data)) {
 			return true;
 		}
-		if (node.right && this.containsInNode(node.right, data) ) { 
+		if (node.right && this.containsInNode(node.right, data)) { 
 			return true;
 		}
 		return false;
@@ -47,19 +47,19 @@ class BinaryTree {
 	}
 	
 	contains(data) {
-		return this.containsInNode(this.root, data)
+		return this.containsInNode(this.root, data);
 	}
 
-	removeFromNode(node, data){
+	removeFromNode(node, data) {
 		
-		if (data > node.data && node.right !== null ){
+		if (data > node.data && node.right !== null ) {
 			
 			// right
-			if (node.right.data == data){
+			if (node.right.data == data) {
 
 				var tempright = null;
 				if (node.right.left !== null ) {
-					tempright = node.right.left
+					tempright = node.right.left;
 				}
 				node.right = tempright;
 			}
@@ -74,8 +74,8 @@ class BinaryTree {
 			// left
 			if (node.left.data == data) {
 				var tempLeft = null;
-				if (node.left.left !== null ){
-					tempLeft = node.left.left
+				if (node.left.left !== null ) {
+					tempLeft = node.left.left;
 				}
 				node.left = tempLeft;
 			} else {
@@ -98,7 +98,7 @@ class BinaryTree {
 			return 
 		}
 		
-		this.removeFromNode(this.root, data)
+		this.removeFromNode(this.root, data);
 	}
 	
 	sizeForNode(node){
@@ -111,11 +111,11 @@ class BinaryTree {
 		}
 		if (node.left !== null){
 			
-			i = i + this.sizeForNode(node.left)
+			i = i + this.sizeForNode(node.left);
 		}
 		if (node.right !== null){
 			
-			i = i + this.sizeForNode(node.right)
+			i = i + this.sizeForNode(node.right);
 		}
 		 return i;
 	}
